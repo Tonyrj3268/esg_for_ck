@@ -1,4 +1,4 @@
-nltk
+nltk==3.9b1
 llama-index
 llama-index-agent-openai
 llama-index-llms-openai
