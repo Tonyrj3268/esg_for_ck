@@ -1,0 +1,57 @@
+[
+  {
+    "company": "2023 Sustainability ReportChinese玉山金控-永續報告書",
+    "alias": ["玉山", "玉山金", "玉山金控"],
+    "industry": ["金控"]
+  },
+  {
+    "company": "2023_SustainabilityReport_CN中國信託-永續報告書",
+    "alias": ["中信", "中國信託"],
+    "industry": ["金控"]
+  },
+  {
+    "company": "2023-CSR-report_c台新金控-永續報告書",
+    "alias": ["台新", "台新金控"],
+    "industry": ["金控"]
+  },
+  {
+    "company": "2023年度南山人壽永續報告書-中文互動版",
+    "alias": ["南山", "南山人壽"],
+    "industry": ["非金控"]
+  },
+  {
+    "company": "2023凱基證券ESG中文版_0731_FINAL",
+    "alias": ["凱基", "凱基證券"],
+    "industry": ["非金控"]
+  },
+  {
+    "company": "2023csrReport_CH國泰金控_永續報告書",
+    "alias": ["國泰", "國泰金", "國泰金控"],
+    "industry": ["金控"]
+  },
+  {
+    "company": "2023ESGReport_富邦證券-永續報告書",
+    "alias": ["富邦", "富邦證券"],
+    "industry": ["非金控"]
+  },
+  {
+    "company": "三商美邦-2023年永續報告書_壓縮完整版全冊",
+    "alias": ["三商美邦"],
+    "industry": ["非金控"]
+  },
+  {
+    "company": "元大金控2023年永續報告書_Fin",
+    "alias": ["元大", "元大金", "元大金控"],
+    "industry": ["金控"]
+  },
+  {
+    "company": "永豐金控2023永續報告書",
+    "alias": ["永豐", "永豐金", "永豐金控"],
+    "industry": ["金控"]
+  },
+  {
+    "company": "統一綜合證券-永續報告書",
+    "alias": ["統一", "統一證券"],
+    "industry": ["非金控"]
+  }
+]
