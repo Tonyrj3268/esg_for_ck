@@ -1,3 +1,4 @@
+nltk
 llama-index
 llama-index-agent-openai
 llama-index-llms-openai
@@ -15,4 +16,3 @@ pytest
 pytest-asyncio
 pyvis
 python-slugify
-nltk
