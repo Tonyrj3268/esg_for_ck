@@ -1,9 +1,12 @@
 import logging
+import os
 import threading
 
 import nltk
 
-nltk.download('wordnet')
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+wordnet_path = os.path.join(project_root, 'wordnet')
+nltk.data.path.append(wordnet_path)
 import nest_asyncio
 from dotenv import load_dotenv
 
