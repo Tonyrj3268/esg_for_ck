@@ -19,6 +19,8 @@ if __name__ == "__main__":
 
     nest_asyncio.apply()
     try:
+        import nltk
+        nltk.download('wordnet')
         # idle_thread = threading.Thread(target=check_idle)
         # idle_thread.daemon = True
         # idle_thread.start()
