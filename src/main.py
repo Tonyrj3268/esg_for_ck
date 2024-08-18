@@ -1,12 +1,8 @@
 import logging
 import os
+import sys
 import threading
 
-import nltk
-
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-wordnet_path = os.path.join(project_root, 'wordnet')
-nltk.data.path.append(wordnet_path)
 import nest_asyncio
 from dotenv import load_dotenv
 
@@ -21,6 +17,14 @@ from dotenv import load_dotenv
 
 if __name__ == "__main__":
     load_dotenv(override=True)
+    
+    
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    wordnet_path = os.path.join(project_root, 'wordnet')
+    sys.path.append(wordnet_path)
+    os.environ['NLTK_DATA'] = project_root
+    import nltk
+    nltk.data.path.append(wordnet_path)
     from streamlit_ui import main
 
     nest_asyncio.apply()
