@@ -14,10 +14,8 @@ from dotenv import load_dotenv
 
 
 if __name__ == "__main__":
-    import nltk
-    nltk.download('punkt')
     load_dotenv(override=True)
-    from streamlit_ui import check_idle, main
+    from streamlit_ui import main
 
     nest_asyncio.apply()
     try:
