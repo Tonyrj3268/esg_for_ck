@@ -9,14 +9,9 @@ from slugify import slugify
 
 from indexing import IndexBuilder
 from node_prcessors import PageGroupPostprocessor
-from prompts import (
-    ESG_AGENT_PROMPT_EN,
-    INDUSTRY_AGENT_PROMPT,
-    INDUSTRY_AGENT_PROMPT_EN,
-    NOTES_AGENT_PROMPT,
-    NOTES_AGENT_PROMPT_EN,
-    TEXT_QA_TEMPLATE,
-)
+from prompts import (ESG_AGENT_PROMPT_EN, INDUSTRY_AGENT_PROMPT,
+                     INDUSTRY_AGENT_PROMPT_EN, NOTES_AGENT_PROMPT,
+                     NOTES_AGENT_PROMPT_EN, TEXT_QA_TEMPLATE)
 
 
 class AgentBuilder:
@@ -58,9 +53,9 @@ class AgentBuilder:
 
         return industry_agent, notes_agent
 
-    async def build_esg_agent(self, esg_title: str):
+    def build_esg_agent(self, esg_title: str):
         esg_path = os.path.join(self.esg_dir_path, esg_title)
-        vector_index = await IndexBuilder().build_vector_index(
+        vector_index = IndexBuilder().build_vector_index(
             persist_path=f"{esg_path}/vector",
         )
         nodes = list(vector_index.docstore.docs.values())
@@ -95,6 +90,5 @@ class AgentBuilder:
         self,
         esg_titles: list[str],
     ) -> dict[str, OpenAIAgent]:
-        tasks = [self.build_esg_agent(esg_title) for esg_title in esg_titles]
-        agents = await asyncio.gather(*tasks)
+        agents = [self.build_esg_agent(esg_title) for esg_title in esg_titles]
         return dict(zip(esg_titles, agents))

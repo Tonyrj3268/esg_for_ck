@@ -12,10 +12,10 @@ from workflow import (Config, ESGReportWorkflow, IndustryMap, SettingsManager,
                       process_documents)
 
 
-async def initialize_agents():
+def initialize_agents():
     SettingsManager.initialize()
     agent_builder = AgentBuilder(Config.ESG_DIR_PATH)
-    return await agent_builder.build_esg_agents(Config.list_companies())
+    return agent_builder.build_esg_agents(Config.list_companies())
 
 
 def update_sidebar_companies() -> None:
@@ -77,7 +77,7 @@ def main():
         st.session_state.last_activity_time = time.time()
 
     if "esg_agents_map" not in st.session_state:
-        st.session_state.esg_agents_map = asyncio.run(initialize_agents())
+        st.session_state.esg_agents_map = initialize_agents()
     if "industry_map" not in st.session_state:
         with open(Config.INDUSTRY_FILE_PATH, "r") as f:
             industry_data = json.load(f)

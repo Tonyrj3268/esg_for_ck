@@ -14,7 +14,7 @@ class IndexBuilder:
     索引構建器
     """
 
-    async def build_index(
+    def build_index(
         self,
         index_class: BaseIndex,
         persist_path: str,
@@ -38,9 +38,9 @@ class IndexBuilder:
         # TODO: Implement JSONNodeParser if needed
         # if doc:
         #     nodes = JSONNodeParser().get_nodes_from_documents([doc])
-        return await self.build_index(VectorStoreIndex, persist_path, data)
+        return self.build_index(VectorStoreIndex, persist_path, data)
 
-    async def build_vector_index(
+    def build_vector_index(
         self,
         persist_path: str,
         data: Optional[list[Document]] = None,
@@ -49,4 +49,4 @@ class IndexBuilder:
             splitter = SentenceSplitter(chunk_size=1024, chunk_overlap=256)
             data = splitter.get_nodes_from_documents(data)
 
-        return await self.build_index(VectorStoreIndex, persist_path, data)
+        return self.build_index(VectorStoreIndex, persist_path, data)
