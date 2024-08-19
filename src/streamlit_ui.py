@@ -73,8 +73,6 @@ def main():
     st.set_page_config(page_title="向你的PDF問問題", page_icon=":books:")
     st.write(css, unsafe_allow_html=True)
     st.header("向多個PDF問問題 :books:")
-    if "last_activity_time" not in st.session_state:
-        st.session_state.last_activity_time = time.time()
 
     if "esg_agents_map" not in st.session_state:
         st.session_state.esg_agents_map = initialize_agents()

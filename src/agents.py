@@ -86,7 +86,7 @@ class AgentBuilder:
         )
         return agent
 
-    async def build_esg_agents(
+    def build_esg_agents(
         self,
         esg_titles: list[str],
     ) -> dict[str, OpenAIAgent]:
