@@ -7,7 +7,8 @@ from pathlib import Path
 from llama_index.agent.openai import OpenAIAgent
 from llama_index.core.callbacks import CallbackManager, LlamaDebugHandler
 from llama_index.core.settings import Settings
-from llama_index.core.workflow import Context, StartEvent, StopEvent, Workflow, step
+from llama_index.core.workflow import (Context, StartEvent, StopEvent,
+                                       Workflow, step)
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.llms.openai import OpenAI
 
@@ -75,17 +76,20 @@ class ESGReportWorkflow(Workflow):
     ) -> ProcessedQueryEvent | StopEvent:
         main_query = ev.query
         industry_prompt = [
-            f"{item.company} 是 {', '.join(item.industry)} 的公司，其別名為 {', '.join(item.alias)}"
+            f"{'、'.join(item.alias)}公司是{'、'.join(item.industry)}的公司，這是他們的資料{item.company}"
             for item in self.industry_map
         ]
         prompt = f"""
         請判斷以下主問題提及的產業或公司是否存在於產業查詢表中：{main_query} 
         以下是產業的查詢表：
-        {", /n".join(industry_prompt)} 
+
+        {"。 \n\n".join(industry_prompt)} 
+
         如果不是產業相關查詢，請直接返回主問題，不要有任何其他的說明。 
         如果是產業相關查詢，請將產業的部分換成相關的公司名稱，並返回新的主問題。 
         有部分公司可能有別名(alias)，例如合庫金也叫合庫金控，請仔細確認。
         如果該公司或是產業不存在於產業查詢表中，請返回「不存在」，不要有任何其他的說明。 
+
         例如
         主問題：請分析食品業的薪水？ 
         根據產業查詢表，產業是食品業，將產業的部分換成相關的公司名稱，其中包括愛之味和台榮公司，並返回新的主問題。 
@@ -148,10 +152,12 @@ class ESGReportWorkflow(Workflow):
     async def choose_esg_agent(self, ev: ChooseAgentEvent) -> RetrieverEvent:
         query = ev.query
         prompt = f"""
-        請選擇一個ESG公司代理人來回答以下問題：{query}，
-        選擇的公司代理人必須是以下列表中的一個：{list(self.esg_agents_map.keys())}，
-        請直接回答選擇的公司代理人名稱，
-        不要說'選擇的公司代理人是'等語句"""
+        Please choose an ESG company representative to answer the following question: {query},
+        The chosen company representative must be one from the following list: {list(self.esg_agents_map.keys())},
+        Please directly respond with the name of the chosen company representative,
+        Do not use phrases like 'The chosen company representative is' etc.
+        """
+        print(prompt)
         response = await self.ai_model.acomplete(prompt)
         agent = self.esg_agents_map[str(response)]
         return RetrieverEvent(agent=agent, query=query, agent_name=str(response))

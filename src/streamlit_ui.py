@@ -12,6 +12,7 @@ from workflow import (Config, ESGReportWorkflow, IndustryMap, SettingsManager,
                       process_documents)
 
 
+@st.cache_resource()
 def initialize_agents():
     SettingsManager.initialize()
     agent_builder = AgentBuilder(Config.ESG_DIR_PATH)
@@ -55,9 +56,7 @@ def handle_userinput(user_question: str) -> None:
         esg_agents_map=st.session_state.esg_agents_map,
         industry_map=st.session_state.industry_map,
     )
-    logging.info(f"Question: {user_question}")
     response = asyncio.run(workflow.run(question=user_question))
-    logging.info(f"Response: {response}")
     st.session_state.chat_history.append(
         {"role": "assistant", "content": str(response)}
     )
