@@ -12,6 +12,7 @@ from workflow import (Config, ESGReportWorkflow, IndustryMap, SettingsManager,
                       process_documents)
 
 
+@st.cache_resource(ttl=3600)
 async def initialize_agents():
     SettingsManager.initialize()
     agent_builder = AgentBuilder(Config.ESG_DIR_PATH)
