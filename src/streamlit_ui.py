@@ -8,35 +8,11 @@ import streamlit as st
 
 from agents import AgentBuilder
 from html_template import bot_template, css, user_template
-from workflow import (
-    Config,
-    ESGReportWorkflow,
-    IndustryMap,
-    SettingsManager,
-    process_documents,
-)
-
-IDLE_TIMEOUT = int(os.getenv("IDLE_TIMEOUT", 3600))
-
-last_activity_time = time.time()
+from workflow import (Config, ESGReportWorkflow, IndustryMap, SettingsManager,
+                      process_documents)
 
 
-def reset_idle():
-    global last_activity_time
-    last_activity_time = time.time()
-
-
-def check_idle():
-    global last_activity_time
-    while True:
-        time.sleep(10)  # 每10秒檢查一次
-        if time.time() - last_activity_time > IDLE_TIMEOUT:
-            print("應用因閒置而關閉")
-            import os
-
-            os._exit(0)
-
-
+@st.cache_resource
 async def initialize_agents():
     SettingsManager.initialize()
     agent_builder = AgentBuilder(Config.ESG_DIR_PATH)
@@ -95,7 +71,6 @@ def handle_userinput(user_question: str) -> None:
 
 
 def main():
-    reset_idle()
     st.set_page_config(page_title="向你的PDF問問題", page_icon=":books:")
     st.write(css, unsafe_allow_html=True)
     st.header("向多個PDF問問題 :books:")
